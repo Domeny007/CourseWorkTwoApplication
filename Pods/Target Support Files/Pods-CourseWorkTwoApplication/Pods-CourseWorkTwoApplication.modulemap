@@ -1,0 +1,6 @@
+framework module Pods_CourseWorkTwoApplication {
+  umbrella header "Pods-CourseWorkTwoApplication-umbrella.h"
+
+  export *
+  module * { export * }
+}
