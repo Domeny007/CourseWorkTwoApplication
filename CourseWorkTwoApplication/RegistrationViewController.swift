@@ -44,11 +44,9 @@ class RegistrationViewController: UIViewController {
               let emailText = emailTextField.text, let passwordText = passwordTextField.text,
               let repeatPasswordText = repeatPasswordTextField.text else { return false }
         
-        if  (nameText.isEmpty &&
-            surenameText.isEmpty &&
-            emailText.isEmpty &&
-            passwordText.isEmpty &&
-            repeatPasswordText.isEmpty) {
+        if  (nameText.isEmpty && surenameText.isEmpty && emailText.isEmpty &&
+            passwordText.isEmpty && repeatPasswordText.isEmpty) {
+            
             testResultLabel.text = allFieldArentFilled
             return false
         }else {

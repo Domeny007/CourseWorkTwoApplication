@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		631E8894A2183468862CC1F8 /* Pods_CourseWorkTwoApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80EE288410C3BE5A6389B32 /* Pods_CourseWorkTwoApplication.framework */; };
+		AA10A60B217F3F2600C9D3A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10A60A217F3F2600C9D3A5 /* User.swift */; };
+		AA10A60D217F400F00C9D3A5 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10A60C217F400F00C9D3A5 /* News.swift */; };
+		AA10A60F217F40BF00C9D3A5 /* Attachments.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10A60E217F40BF00C9D3A5 /* Attachments.swift */; };
 		AA262E7C21779A9200151526 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA262E7B21779A9200151526 /* Constants.swift */; };
 		AACD1EEF217647550072D2FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD1EEE217647550072D2FE /* AppDelegate.swift */; };
 		AACD1EF4217647550072D2FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AACD1EF2217647550072D2FE /* Main.storyboard */; };
@@ -17,11 +20,15 @@
 		AACD1F0521764A8E0072D2FE /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD1F0421764A8E0072D2FE /* RegistrationViewController.swift */; };
 		AACD1F0721764E620072D2FE /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD1F0621764E620072D2FE /* NewsViewController.swift */; };
 		AAE4BA71217722BE0043D19F /* WebKitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE4BA70217722BE0043D19F /* WebKitViewController.swift */; };
+		AAED1713217F9C9700EE5FD8 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAED1712217F9C9700EE5FD8 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		281AD45488C83508E392B106 /* Pods-CourseWorkTwoApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseWorkTwoApplication.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseWorkTwoApplication/Pods-CourseWorkTwoApplication.debug.xcconfig"; sourceTree = "<group>"; };
 		47ADA4AC08450DAA5511E7BD /* Pods-CourseWorkTwoApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseWorkTwoApplication.release.xcconfig"; path = "Pods/Target Support Files/Pods-CourseWorkTwoApplication/Pods-CourseWorkTwoApplication.release.xcconfig"; sourceTree = "<group>"; };
+		AA10A60A217F3F2600C9D3A5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AA10A60C217F400F00C9D3A5 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		AA10A60E217F40BF00C9D3A5 /* Attachments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachments.swift; sourceTree = "<group>"; };
 		AA262E7B21779A9200151526 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		AACD1EEB217647550072D2FE /* CourseWorkTwoApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseWorkTwoApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AACD1EEE217647550072D2FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,6 +40,7 @@
 		AACD1F0421764A8E0072D2FE /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		AACD1F0621764E620072D2FE /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		AAE4BA70217722BE0043D19F /* WebKitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebKitViewController.swift; sourceTree = "<group>"; };
+		AAED1712217F9C9700EE5FD8 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		D80EE288410C3BE5A6389B32 /* Pods_CourseWorkTwoApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseWorkTwoApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -57,6 +65,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AA10A609217F3F1300C9D3A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA10A60A217F3F2600C9D3A5 /* User.swift */,
+				AA10A60C217F400F00C9D3A5 /* News.swift */,
+				AA10A60E217F40BF00C9D3A5 /* Attachments.swift */,
+				AAED1712217F9C9700EE5FD8 /* Comment.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AACD1EE2217647550072D2FE = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +97,7 @@
 		AACD1EED217647550072D2FE /* CourseWorkTwoApplication */ = {
 			isa = PBXGroup;
 			children = (
+				AA10A609217F3F1300C9D3A5 /* Model */,
 				AA262E7B21779A9200151526 /* Constants.swift */,
 				AACD1EEE217647550072D2FE /* AppDelegate.swift */,
 				AACD1EF2217647550072D2FE /* Main.storyboard */,
@@ -214,10 +234,14 @@
 			files = (
 				AACD1F012176483E0072D2FE /* LoginViewController.swift in Sources */,
 				AAE4BA71217722BE0043D19F /* WebKitViewController.swift in Sources */,
+				AA10A60D217F400F00C9D3A5 /* News.swift in Sources */,
 				AACD1F0521764A8E0072D2FE /* RegistrationViewController.swift in Sources */,
+				AA10A60F217F40BF00C9D3A5 /* Attachments.swift in Sources */,
+				AAED1713217F9C9700EE5FD8 /* Comment.swift in Sources */,
 				AACD1F0721764E620072D2FE /* NewsViewController.swift in Sources */,
 				AACD1EEF217647550072D2FE /* AppDelegate.swift in Sources */,
 				AA262E7C21779A9200151526 /* Constants.swift in Sources */,
+				AA10A60B217F3F2600C9D3A5 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,7 +391,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U76UU38W98;
 				INFOPLIST_FILE = CourseWorkTwoApplication/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iosLab.CourseWorkTwoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -383,7 +410,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U76UU38W98;
 				INFOPLIST_FILE = CourseWorkTwoApplication/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = iosLab.CourseWorkTwoApplication;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;

@@ -282,8 +282,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lm-kN-PBz">
-                                <rect key="frame" x="123" y="153" width="128" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Lm-kN-PBz">
+                                <rect key="frame" x="183.5" y="153" width="8" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -308,6 +308,7 @@
                             <constraint firstItem="Z8h-aP-zeS" firstAttribute="trailing" secondItem="78g-DI-WpQ" secondAttribute="trailing" constant="70" id="auY-Qy-0cm"/>
                             <constraint firstItem="7fX-DN-EJt" firstAttribute="leading" secondItem="Z8h-aP-zeS" secondAttribute="leading" constant="70" id="bbb-0N-KvM"/>
                             <constraint firstItem="78g-DI-WpQ" firstAttribute="top" secondItem="7MH-wb-VLA" secondAttribute="bottom" constant="50" id="bck-iR-cNT"/>
+                            <constraint firstItem="0Lm-kN-PBz" firstAttribute="centerX" secondItem="6w9-Ol-FIP" secondAttribute="centerX" id="ejY-Rm-hYZ"/>
                             <constraint firstItem="7MH-wb-VLA" firstAttribute="top" secondItem="6w9-Ol-FIP" secondAttribute="bottom" constant="50" id="gUT-14-I5S"/>
                             <constraint firstItem="XSY-MO-yhF" firstAttribute="leading" secondItem="Z8h-aP-zeS" secondAttribute="leading" constant="70" id="i0k-23-wCO"/>
                             <constraint firstItem="aH8-Fz-vh1" firstAttribute="top" secondItem="q5J-hZ-osN" secondAttribute="bottom" constant="30" id="kch-dp-9on"/>
@@ -332,7 +333,7 @@
             </objects>
             <point key="canvasLocation" x="661.60000000000002" y="669.71514242878561"/>
         </scene>
-        <!--News-->
+        <!--Новости-->
         <scene sceneID="JTe-mX-qFO">
             <objects>
                 <viewController storyboardIdentifier="newsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CNN-rX-dgM" customClass="NewsViewController" customModule="CourseWorkTwoApplication" customModuleProvider="target" sceneMemberID="viewController">
@@ -375,11 +376,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EeY-fy-Ww3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="News" id="u0A-JT-yUV"/>
+                    <tabBarItem key="tabBarItem" title="Новости" id="u0A-JT-yUV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jE2-ma-Ntv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2406" y="-111"/>
+            <point key="canvasLocation" x="2548" y="-263"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="WX4-t6-oU2">
@@ -392,11 +393,80 @@
                     </tabBar>
                     <connections>
                         <segue destination="CNN-rX-dgM" kind="relationship" relationship="viewControllers" id="iMw-0L-udh"/>
+                        <segue destination="6bd-ns-1Oe" kind="relationship" relationship="viewControllers" id="3ej-sb-suL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hS8-gR-6jY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1444" y="499"/>
+            <point key="canvasLocation" x="1428" y="143"/>
+        </scene>
+        <!--Профиль-->
+        <scene sceneID="A8D-Wq-tqE">
+            <objects>
+                <viewController id="6bd-ns-1Oe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lEF-2f-uuu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ger-Tq-wPk">
+                                <rect key="frame" x="25" y="45" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="fzp-LC-gzm"/>
+                                    <constraint firstAttribute="width" constant="100" id="v4y-KL-au5"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ut2-mx-pcH">
+                                <rect key="frame" x="135" y="45" width="34" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3R-Uh-aSZ">
+                                <rect key="frame" x="179" y="45" width="186" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мои теги" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZQ-HA-G38">
+                                <rect key="frame" x="25" y="195" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XWa-9h-R5f">
+                                <rect key="frame" x="0.0" y="224" width="179" height="394"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToD-p9-VR3">
+                                <rect key="frame" x="135" y="124" width="230" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ger-Tq-wPk" firstAttribute="leading" secondItem="K7v-dy-Iyo" secondAttribute="leading" constant="25" id="9Ot-AU-nNo"/>
+                            <constraint firstItem="Ger-Tq-wPk" firstAttribute="top" secondItem="K7v-dy-Iyo" secondAttribute="top" constant="25" id="DYW-X5-tpc"/>
+                            <constraint firstItem="ToD-p9-VR3" firstAttribute="leading" secondItem="Ger-Tq-wPk" secondAttribute="trailing" constant="10" id="F3s-cE-16V"/>
+                            <constraint firstItem="ut2-mx-pcH" firstAttribute="leading" secondItem="Ger-Tq-wPk" secondAttribute="trailing" constant="10" id="O3a-wD-YTG"/>
+                            <constraint firstItem="ToD-p9-VR3" firstAttribute="bottom" secondItem="Ger-Tq-wPk" secondAttribute="bottom" id="QvY-HN-xBJ"/>
+                            <constraint firstItem="x3R-Uh-aSZ" firstAttribute="top" secondItem="K7v-dy-Iyo" secondAttribute="top" constant="25" id="i9H-tx-apr"/>
+                            <constraint firstItem="eZQ-HA-G38" firstAttribute="leading" secondItem="K7v-dy-Iyo" secondAttribute="leading" constant="25" id="oBA-5A-OnP"/>
+                            <constraint firstItem="eZQ-HA-G38" firstAttribute="top" secondItem="Ger-Tq-wPk" secondAttribute="bottom" constant="50" id="oRp-KA-7SU"/>
+                            <constraint firstItem="ut2-mx-pcH" firstAttribute="top" secondItem="K7v-dy-Iyo" secondAttribute="top" constant="25" id="sgT-sa-BSu"/>
+                            <constraint firstItem="K7v-dy-Iyo" firstAttribute="trailing" secondItem="x3R-Uh-aSZ" secondAttribute="trailing" constant="10" id="vrb-PY-yoG"/>
+                            <constraint firstItem="K7v-dy-Iyo" firstAttribute="trailing" secondItem="ToD-p9-VR3" secondAttribute="trailing" constant="10" id="vu2-hp-Au6"/>
+                            <constraint firstItem="x3R-Uh-aSZ" firstAttribute="leading" secondItem="ut2-mx-pcH" secondAttribute="trailing" constant="10" id="xAQ-eE-zYj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="K7v-dy-Iyo"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Профиль" id="DcD-nv-VNC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d78-Vi-JKw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2548" y="542.87856071964018"/>
         </scene>
     </scenes>
     <resources>
