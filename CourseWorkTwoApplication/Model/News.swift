@@ -10,9 +10,9 @@ import Foundation
 
 struct News {
     
-    var tags:Dictionary<String, Any>?
+    var tags: Dictionary<String, Any>?
     var text: String?
     var ownerId: Int?
-    var author:Dictionary<String, Any>?
+    var author: Dictionary<String, Any>?
     
 }

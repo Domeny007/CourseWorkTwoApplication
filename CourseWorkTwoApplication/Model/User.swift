@@ -7,13 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
-struct User {
+class User {
     
     var id: String?
     var name: String?
     var surename: String?
     var email: String?
     var password: String?
+    var avatarImage: UIImage?
     
 }
