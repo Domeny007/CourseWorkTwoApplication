@@ -6,6 +6,7 @@ target 'CourseWorkTwoApplication' do
   use_frameworks!
 
   # Pods for CourseWorkTwoApplication
-pod "VK-ios-sdk" 
-
+pod "VK-ios-sdk"
+pod 'Fabric'
+pod 'Crashlytics'
 end

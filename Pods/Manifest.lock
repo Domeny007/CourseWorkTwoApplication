@@ -1,16 +1,25 @@
 PODS:
+  - Crashlytics (3.11.1):
+    - Fabric (~> 1.8.1)
+  - Fabric (1.8.2)
   - VK-ios-sdk (1.4.6)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
   - VK-ios-sdk
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
     - VK-ios-sdk
 
 SPEC CHECKSUMS:
+  Crashlytics: ca7ab4bc304aa216bdc2e4c1a96389ee77252203
+  Fabric: d2b22f443ba195d8a7cc204da230977c72733b40
   VK-ios-sdk: 7fd48bc5aaa6b96c3197c1987eb6593f2ea67331
 
-PODFILE CHECKSUM: 768f88b6c6d0b40df56f195f6b84a636ea6d76a5
+PODFILE CHECKSUM: d1da2bdde4e659fd5acd3b6c2399a06f956e9cc1
 
 COCOAPODS: 1.5.3

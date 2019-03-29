@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
-struct Comment {
+class Comment {
     
     var id: Int?
-    var ownerId: Int?
-    var postId: Int?
+    var ownerName: String?
+    var ownerSurename: String?
     var text: String?
+    var date: String?
+    var ownerImage: UIImage?
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Attachments {
+class Attachments {
     
     var siteRefrence : URL?
     var photoRefrence: URL?

@@ -8,11 +8,15 @@
 
 import Foundation
 
-struct News {
+class News {
     
-    var tags: Dictionary<String, Any>?
+    var id: Int?
+    var tags: String? = ""
     var text: String?
     var ownerId: Int?
-    var author: Dictionary<String, Any>?
+    var authorName: String?
+    var authorSurename: String?
+    var authorPhoroUrl: String?
+    var date: String?
     
 }

@@ -16,6 +16,6 @@ class User {
     var surename: String?
     var email: String?
     var password: String?
-    var avatarImage: UIImage?
+    var avatarImageUrl: String?
     
 }
