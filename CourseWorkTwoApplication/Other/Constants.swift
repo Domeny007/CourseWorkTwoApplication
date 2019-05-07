@@ -24,6 +24,7 @@ let newsViewControllerIdentifier = "newsViewController"
 let creatingEventVCIdentifier = "creatingEventVCIdentifier"
 let newsCommentsViewControllerIdentifier = "newsCommentsViewControllerIdentifier"
 let answerViewControllerIdentifier = "answerViewControllerIdentifier"
+let commentsCellIdentifier = "CommentTableViewCell"
 
 
 let newsTableViewCellNibName = "NewsTableViewCell"

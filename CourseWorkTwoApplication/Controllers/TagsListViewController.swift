@@ -48,8 +48,8 @@ class TagsListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             let rewritedTag = self.rewriteTagName(with: self.tagName)
-            let url = URL(string: BASE_URL + "/api/tags/\(rewritedTag)/sub-name")
-            var request = URLRequest(url: url!)
+            guard let url = URL(string: BASE_URL + "/api/tags/\(rewritedTag)/sub-name") else { return }
+            var request = URLRequest(url: url)
             request.httpMethod = "GET"
             guard let userToken = UserDefaults.standard.string(forKey: userDefaultTokenKey) else { return }
             request.addValue("JWT \(userToken)", forHTTPHeaderField: "Authorization")

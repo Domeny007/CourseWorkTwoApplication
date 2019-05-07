@@ -19,6 +19,7 @@
 		AA6C4D6B218CBCED00F279A8 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6C4D69218CBCED00F279A8 /* NewsTableViewCell.swift */; };
 		AA6C4D6C218CBCED00F279A8 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA6C4D6A218CBCED00F279A8 /* NewsTableViewCell.xib */; };
 		AA74528821E3EF9900F61B72 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA74528721E3EF9900F61B72 /* Media.swift */; };
+		AA7A8B84227602E400230036 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A8B83227602E400230036 /* Extensions.swift */; };
 		AAA56565219B4F6C009EED25 /* ProfileTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA56563219B4F6C009EED25 /* ProfileTagsTableViewCell.swift */; };
 		AAA56566219B4F6C009EED25 /* ProfileTagsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA56564219B4F6C009EED25 /* ProfileTagsTableViewCell.xib */; };
 		AAB8383521ADF84800F49140 /* NewsCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8383421ADF84800F49140 /* NewsCommentsViewController.swift */; };
@@ -56,6 +57,7 @@
 		AA6C4D69218CBCED00F279A8 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		AA6C4D6A218CBCED00F279A8 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		AA74528721E3EF9900F61B72 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		AA7A8B83227602E400230036 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AAA56563219B4F6C009EED25 /* ProfileTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTagsTableViewCell.swift; sourceTree = "<group>"; };
 		AAA56564219B4F6C009EED25 /* ProfileTagsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTagsTableViewCell.xib; sourceTree = "<group>"; };
 		AAB8383421ADF84800F49140 /* NewsCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCommentsViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				AACD1EEE217647550072D2FE /* AppDelegate.swift */,
 				AACD1EF5217647550072D2FE /* Assets.xcassets */,
 				AACD1EF7217647550072D2FE /* LaunchScreen.storyboard */,
+				AA7A8B83227602E400230036 /* Extensions.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				AA14271F219AF50D00F7F514 /* Tag.swift in Sources */,
 				AAC60F6D21A473AD0044E19F /* CommentsViewController.swift in Sources */,
 				AACD1EEF217647550072D2FE /* AppDelegate.swift in Sources */,
+				AA7A8B84227602E400230036 /* Extensions.swift in Sources */,
 				AA262E7C21779A9200151526 /* Constants.swift in Sources */,
 				AAF18BE721D2DAE70008E4F8 /* TagsListViewController.swift in Sources */,
 				AA10A60B217F3F2600C9D3A5 /* User.swift in Sources */,

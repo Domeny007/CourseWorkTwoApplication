@@ -9,19 +9,13 @@
 import UIKit
 import VK_ios_sdk
 
-class LoginViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
+class LoginViewController: UIViewController {
 
-    @IBOutlet weak var vkAuthButton: UIButton!
-    @IBOutlet weak var googleAuthButton: UIButton!
-    @IBOutlet weak var twitterAuthButton: UIButton!
+
     @IBOutlet weak var registrationButton: UIButton!
-    @IBOutlet weak var loginWithAnotherButton: UIButton!
-    @IBOutlet weak var forgetPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var emailPasswordChecingLabel: UILabel!
     
     
@@ -32,11 +26,6 @@ class LoginViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         view.addGestureRecognizer(tap)
         emailPasswordChecingLabel.sizeToFit()
         emailPasswordChecingLabel.adjustsFontSizeToFitWidth = true
-        
-        let sdkInstance = VKSdk.initialize(withAppId: vkAppID)
-        sdkInstance!.register(self)
-        sdkInstance?.uiDelegate = self
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,55 +46,6 @@ class LoginViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         }
         
     }
-    @IBAction func vkAuthButtonPressed(_ sender: UIButton) {
-        VKSdk.wakeUpSession([VK_API_LONG]) { (state, error) in
-            switch(state) {
-            case VKAuthorizationState.authorized:
-                let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
-                let mainTabBarController = storyboard.instantiateViewController(withIdentifier: mainTabBarIdentifier) as! MainTabBarController
-                self.present(mainTabBarController, animated: true, completion: nil)
-                break
-            case VKAuthorizationState.initialized:
-                VKSdk.authorize([VK_PER_EMAIL])
-                break
-            default:
-                break
-            }
-        }
-        
-    }
-    
-    @IBAction func googleAuthButtonPressed(_ sender: UIButton) {
-        
-    }
-    @IBAction func twitterAuthButtonPressed(_ sender: UIButton) {
-        
-    }
-    /* vk functions*/
-    func vkSdkShouldPresent(_ controller: UIViewController!) {
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {}
-    
-    func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
-        if (result.token != nil) {
-            // User successfully authorized, you may start working with VK API
-            //print("successfully authorized", result.token)
-            let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
-            let mainTabBarController = storyboard.instantiateViewController(withIdentifier: mainTabBarIdentifier) as! MainTabBarController
-            self.present(mainTabBarController, animated: true, completion: nil)
-            
-        } else if (result.error != nil) {
-            // User canceled authorization, or occured unresolving networking error. Reset your UI to initial state and try authorize user later
-            print("authorization unsuccessfull")
-        }
-    }
-    
-    func vkSdkUserAuthorizationFailed() {
-        print("Failed")
-    }
-    
     /* present main window after login */
     func presentMainTabBar() {
         emailTextField.text = ""
@@ -136,6 +76,7 @@ class LoginViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
         request.httpBody = httpBody
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("", forHTTPHeaderField: "Cookie")
         let session = URLSession.shared
         session.dataTask(with: request) { (data, responce, error) in
             if let responce = responce {
@@ -149,7 +90,6 @@ class LoginViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
                     if let dictionary = json as? [String:Any] {
                         if let token = dictionary["token"] {
                             UserDefaults.standard.set(token, forKey: userDefaultTokenKey)
-//                            print("TOKEN: ", token)
                             DispatchQueue.main.async {
                                 self.presentMainTabBar()
                             }

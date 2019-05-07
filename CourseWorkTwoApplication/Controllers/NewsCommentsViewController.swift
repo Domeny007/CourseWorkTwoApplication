@@ -18,13 +18,18 @@ class NewsCommentsViewController: UIViewController, UITabBarDelegate, UITableVie
     @IBOutlet weak var newsTagsLabel: UILabel!
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var answerButton: UIButton!
+    @IBOutlet weak var newsDateLabel: UILabel!
     
     var commentsArray = [Comment]()
     var newComment:Comment = Comment()
     var cellId:Int = 1000
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        userImageView.image = #imageLiteral(resourceName: "ic_profile")
         getComments()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -48,11 +53,6 @@ class NewsCommentsViewController: UIViewController, UITabBarDelegate, UITableVie
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return commentsArray.count
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
@@ -94,13 +94,19 @@ class NewsCommentsViewController: UIViewController, UITabBarDelegate, UITableVie
         }.resume()
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return commentsArray.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("CommentTableViewCell", owner: self, options: nil)?.first as! CommentTableViewCell
         cell.authorNameLabel.text = commentsArray[indexPath.row].ownerName
         cell.authorSurenameLabel.text = commentsArray[indexPath.row].ownerSurename
-        cell.authorDataLabel.text = commentsArray[indexPath.row].date
+        cell.commentDateLabel.text = commentsArray[indexPath.row].date
         cell.commentsTextView.text = commentsArray[indexPath.row].text
         cell.authorImageView.image = commentsArray[indexPath.row].ownerImage
+        cell.commentDateLabel.text = commentsArray[indexPath.row].date?.convertDateString()
+        cell.authorImageView.image = #imageLiteral(resourceName: "ic_profile-5")
         cell.answerButton.isHidden = false
         return cell
     }
@@ -133,6 +139,12 @@ class NewsCommentsViewController: UIViewController, UITabBarDelegate, UITableVie
                                 self.newsTextView.text = value as? String
                             }
                         }
+                        if (key == "created") {
+                            DispatchQueue.main.async {
+                                let newsDateString = value as? String
+                                self.newsDateLabel.text = newsDateString?.convertDateString()
+                            }
+                        }
                         if (key == "author") {
                             if let authorDict = value as? Dictionary<String,Any> {
                                 for (key,value) in authorDict {
@@ -157,6 +169,9 @@ class NewsCommentsViewController: UIViewController, UITabBarDelegate, UITableVie
                                         for (key,value) in commentDict {
                                             if (key == "text") {
                                                 self.newComment.text = value as? String
+                                            }
+                                            if (key == "created") {
+                                                self.newComment.date = value as? String
                                             }
                                             if (key == "author") {
                                                 if let commentAuthorDict = value as? Dictionary<String,Any> {

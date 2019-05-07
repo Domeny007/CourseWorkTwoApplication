@@ -119,7 +119,6 @@ class RegistrationViewController: UIViewController {
         let passwordObject = password as AnyObject
         let repeatPasswordObject = repeatPassword as AnyObject
         
-        
         let parameters = ["email":emailObject ,"first_name":nameObject,"last_name":surenameObject, "password1":passwordObject,"password2":repeatPasswordObject]
         guard let url = URL(string: BASE_URL + "/auth/registration/") else { return }
         var request = URLRequest(url: url)
@@ -127,6 +126,7 @@ class RegistrationViewController: UIViewController {
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
         request.httpBody = httpBody
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("", forHTTPHeaderField: "Cookie")
         let session = URLSession.shared
         session.dataTask(with: request) { (data, responce, error) in
             if let responce = responce {
@@ -135,13 +135,13 @@ class RegistrationViewController: UIViewController {
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
                     if let dictionary = json as? [String:Any] {
                         if let token = dictionary["token"] {
                             UserDefaults.standard.set(token, forKey: userDefaultTokenKey)
                             DispatchQueue.main.async {
                                 self.presentMainTabBar()
                             }
-                            
                         }
                         
                     }
@@ -149,6 +149,7 @@ class RegistrationViewController: UIViewController {
                     print(error)
                 }
             }
+
             if let error = error {
                 print(error)
             }

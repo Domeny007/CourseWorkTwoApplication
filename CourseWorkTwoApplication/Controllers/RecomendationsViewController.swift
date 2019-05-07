@@ -8,16 +8,38 @@
 
 import UIKit
 
-class RecomendationsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate {
+class RecomendationsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,AddToCalendarButtonPressedProtocol, NewsCommentsProtocol, TagsListProtocol {
+    func loadCreatingEventWindow(cell: NewsTableViewCell) {
+        let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
+        let creatingEventVC = storyboard.instantiateViewController(withIdentifier: creatingEventVCIdentifier) as! CreatingEventViewController
+        self.present(creatingEventVC, animated: true, completion: nil)
+    }
+    
+    func loadNewsCommentWindow(cell: NewsTableViewCell) {
+        let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
+        let newsCommentsVC = storyboard.instantiateViewController(withIdentifier: newsCommentsViewControllerIdentifier) as! NewsCommentsViewController
+        newsCommentsVC.cellId = cell.id!
+        
+        self.present(newsCommentsVC, animated: true, completion: nil)
+    }
+    
+    func loadTagsListWindow(cell: NewsTableViewCell) {
+        let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
+        let tagsListVC = storyboard.instantiateViewController(withIdentifier: tagsListVCIdentifier) as! TagsListViewController
+        guard let cellId = cell.id, let tags = newsArray[cellId].tags else { return }
+        tagsListVC.tagsString = tags
+        self.present(tagsListVC, animated: true, completion: nil)
+    }
+    
     
     @IBOutlet weak var newsSearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-
     var newNews: News = News()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newsArray.removeAll()
+        getNews()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -34,6 +56,86 @@ class RecomendationsViewController: UIViewController,UITableViewDataSource,UITab
         let tempNames = tag.replacingOccurrences(of: " ", with: "&")
         let tagNames = tempNames.replacingOccurrences(of: "#", with: "tag=")
         return tagNames
+        
+    }
+    
+    func getNews() {
+        guard let url = URL(string: BASE_URL + "/api/news/")  else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        guard let userToken = UserDefaults.standard.string(forKey: userDefaultTokenKey) else { return }
+        request.addValue("JWT \(userToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, _, error) in
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    //print(json)
+                    guard let array = json as? NSArray else { return }
+                    for i in 0..<array.count {
+                        guard let tempDict = array[i] as? Dictionary<String,Any> else { return }
+                        for (key,value) in tempDict {
+                            if (key == "id") {
+                                let id = value as! Int
+                                UserDefaults.standard.set(id, forKey: "\(i)news")
+                                
+                            }
+                            if (key == "text") {
+                                self.newNews.text = value as? String
+                            }
+                            if (key == "author") {
+                                if let authorDict = value as? Dictionary<String,Any> {
+                                    for (key,value) in authorDict {
+                                        if (key == "first_name") {
+                                            self.newNews.authorName = value as? String
+                                        }
+                                        if (key == "last_name") {
+                                            self.newNews.authorSurename = value as? String
+                                        }
+                                        if (key == "profile") {
+                                            if let authorsProfileDict = value as? Dictionary<String,Any> {
+                                                for (key,value) in authorsProfileDict {
+                                                    if (key == "photo_url") {
+                                                        self.newNews.authorPhoroUrl = value as? String
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                            if (key == "created") {
+                                self.newNews.date = value as? String
+                            }
+                            if (key == "tags") {
+                                if let tempTagsArray = value as? NSArray {
+                                    for item in tempTagsArray {
+                                        if let tagDict = item as? Dictionary<String,Any> {
+                                            for (key,value) in tagDict {
+                                                if (key == "name") {
+                                                    self.newNews.tags?.append(value as! String)
+                                                    self.newNews.tags?.append(" ")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        newsArray.append(self.newNews)
+                        self.newNews = News()
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+            }.resume()
+        
         
     }
     
@@ -119,12 +221,16 @@ class RecomendationsViewController: UIViewController,UITableViewDataSource,UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = Bundle.main.loadNibNamed("NewsTableViewCell", owner: self, options: nil)?.first as! NewsTableViewCell
-                cell.ownerNameLabel.text = newsArray[indexPath.row].authorName
-                cell.ownerSurenameLabel.text = newsArray[indexPath.row].authorSurename
-                cell.newsTextView.text = newsArray[indexPath.row].text
-                cell.tagsLabel.text = "Тэги " + newsArray[indexPath.row].tags!
-        cell.newsDateLabel.text = localizeDateFormat(with: newsArray[indexPath.row].date!)
+        let cell = Bundle.main.loadNibNamed(newsTableViewCellNibName, owner: self, options: nil)?.first as! NewsTableViewCell
+        cell.eventDelegate = self
+        cell.commentDelegate = self
+        cell.tagsListDelegate = self
+        cell.ownerNameLabel.text = newsArray[indexPath.row].authorName
+        cell.ownerSurenameLabel.text = newsArray[indexPath.row].authorSurename
+        cell.newsTextView.text = newsArray[indexPath.row].text
+        cell.tagsLabel.text = "Тэги " + newsArray[indexPath.row].tags!
+        cell.newsDateLabel.text = newsArray[indexPath.row].date!.convertDateString()
+        cell.id = indexPath.row
         
         if let authorPhotoString = newsArray[indexPath.row].authorPhoroUrl {
             if authorPhotoString == "" {

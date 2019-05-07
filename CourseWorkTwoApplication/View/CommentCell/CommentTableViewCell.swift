@@ -18,7 +18,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet weak var authorImageView: UIImageView!
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var authorSurenameLabel: UILabel!
-    @IBOutlet weak var authorDataLabel: UILabel!
+    @IBOutlet weak var commentDateLabel: UILabel!
     @IBOutlet weak var commentsTextView: UITextView!
     @IBOutlet weak var answerButton: UIButton!
     

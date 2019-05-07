@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                    print(json)
+                    print(json)
                     guard let dictionary = json as? Dictionary<String, Any> else { return }
                     DispatchQueue.main.async {
                         for (key,value) in dictionary {
@@ -112,6 +112,11 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         emailTextField.alpha = 0.3
         surenameTextField.alpha = 0.3
         changePhotoButton.alpha = 0
+        self.avatarImageView.image = #imageLiteral(resourceName: "ic_profile-5")
+    }
+    @IBAction func exitButtonPressed(_ sender: UIButton) {
+            UserDefaults.standard.removeObject(forKey: userDefaultTokenKey)
+            self.dismiss(animated: true, completion: nil)
     }
     @IBAction func changeButtonPressed(_ sender: UIButton) {
         if changeButton.titleLabel?.text == "Изменить" {
@@ -153,10 +158,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         request.httpMethod = "POST"
         guard let userToken = UserDefaults.standard.string(forKey: userDefaultTokenKey) else { return }
         let boundary = generateBoundary()
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.addValue("JWT \(userToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let httpBody = createDataBody(withParameters: nil, media: [mediaImage], boundary: boundary)
+        let httpBody = createDataBody(withParameters: nil, media: mediaImage, boundary: boundary)
         request.httpBody = httpBody
         
         let session = URLSession.shared
@@ -175,7 +180,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         return "Boundary-\(NSUUID().uuidString)"
     }
     
-    func createDataBody(withParameters params: Parameters?, media: [Media]?, boundary: String) -> Data {
+    func createDataBody(withParameters params: Parameters?, media: Media, boundary: String) -> Data {
         
         let lineBreak = "\r\n"
         var body = Data()
@@ -188,17 +193,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
         
-        if let media = media {
-            for photo in media {
-                body.append("--\(boundary + lineBreak)")
-                body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.fileName)\"\(lineBreak)")
-                body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
-                body.append(photo.data)
-                body.append(lineBreak)
-                
-            }
-        }
-        body.append("--\(boundary)--\(lineBreak)")
+        let photo = media
+            body.append("--\(boundary + lineBreak)")
+            body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.fileName)\"\(lineBreak)")
+            body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
+            body.append(photo.data)
+            body.append(lineBreak)
+            body.append("--\(boundary)--\(lineBreak)")
         return body
     }
     
@@ -305,13 +306,4 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
 
-}
-
-extension Data {
-    mutating func append(_ string: String) {
-        if let data = string.data(using: .utf8) {
-        append(data)
-            
-        }
-    }
 }
