@@ -39,6 +39,8 @@ class TagsListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         return tagsArray
     }
     @IBAction func backButtonPressed(_ sender: UIButton) {
+        tagsString = ""
+        usersTags.removeAll()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -48,6 +50,7 @@ class TagsListViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             let rewritedTag = self.rewriteTagName(with: self.tagName)
+            print(rewritedTag)
             guard let url = URL(string: BASE_URL + "/api/tags/\(rewritedTag)/sub-name") else { return }
             var request = URLRequest(url: url)
             request.httpMethod = "GET"

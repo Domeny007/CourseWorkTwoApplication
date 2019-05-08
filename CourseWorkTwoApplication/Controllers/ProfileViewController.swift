@@ -151,26 +151,33 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func changeUsersAvatar(with photo: UIImage) {
-        let avatar = photo
-        guard let mediaImage = Media(withImage: avatar, forKey: "image") else { return }
+       // guard let mediaImage = Media(withImage: avatar, forKey: "image") else { return }
         guard let url = URL(string: BASE_URL + "/auth/get-current-user/change-photo/") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        guard let userToken = UserDefaults.standard.string(forKey: userDefaultTokenKey) else { return }
         let boundary = generateBoundary()
+        guard let userToken = UserDefaults.standard.string(forKey: userDefaultTokenKey) else { return }
         request.addValue("JWT \(userToken)", forHTTPHeaderField: "Authorization")
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         
-        let httpBody = createDataBody(withParameters: nil, media: mediaImage, boundary: boundary)
+        let httpBody = createBody(parameters: [:], boundary: generateBoundary(), data: photo.jpegData(compressionQuality: 0.7)!, mimeType: "image/jpg", filename: photo.description)
         request.httpBody = httpBody
         
         let session = URLSession.shared
         session.dataTask(with: request) { (data, responce, error) in
+            do {
+            if let data = data {
+
+                print(data)
+            }
             if let responce = responce {
                 print(responce)
             }
             
             if let error = error {
+                print(error)
+            }
+            } catch {
                 print(error)
             }
             }.resume()
@@ -180,27 +187,29 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         return "Boundary-\(NSUUID().uuidString)"
     }
     
-    func createDataBody(withParameters params: Parameters?, media: Media, boundary: String) -> Data {
+    func createBody(parameters: [String: String],
+                    boundary: String,
+                    data: Data,
+                    mimeType: String,
+                    filename: String) -> Data {
+        let body = NSMutableData()
         
-        let lineBreak = "\r\n"
-        var body = Data()
+        let boundaryPrefix = "--\(boundary)\r\n"
         
-        if let parameters = params {
-            for (key, value) in parameters {
-                body.append("--\(boundary + lineBreak)")
-                body.append("Content-Disposition: form-data; name=\"\(key)\"\(lineBreak + lineBreak)")
-                body.append("\(value + lineBreak)")
-            }
+        for (key, value) in parameters {
+            body.appendString(string: boundaryPrefix)
+            body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString(string: "\(value)\r\n")
         }
         
-        let photo = media
-            body.append("--\(boundary + lineBreak)")
-            body.append("Content-Disposition: form-data; name=\"\(photo.key)\"; filename=\"\(photo.fileName)\"\(lineBreak)")
-            body.append("Content-Type: \(photo.mimeType + lineBreak + lineBreak)")
-            body.append(photo.data)
-            body.append(lineBreak)
-            body.append("--\(boundary)--\(lineBreak)")
-        return body
+        body.appendString(string: boundaryPrefix)
+        body.appendString(string: "Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
+        body.appendString(string: "Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString(string: "\r\n")
+        body.appendString(string: "--".appending(boundary.appending("--")))
+        
+        return body as Data
     }
     
     func changeUserInforamtion(with email: String, and name: String, and surename: String) {

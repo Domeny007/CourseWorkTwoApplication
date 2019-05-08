@@ -71,3 +71,12 @@ extension Data {
         }
     }
 }
+
+extension NSMutableData {
+    
+    func appendString(string: String) {
+        let data = string.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        append(data!)
+}
+}
+

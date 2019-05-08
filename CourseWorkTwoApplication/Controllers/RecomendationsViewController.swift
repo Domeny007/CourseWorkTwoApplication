@@ -9,6 +9,20 @@
 import UIKit
 
 class RecomendationsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,AddToCalendarButtonPressedProtocol, NewsCommentsProtocol, TagsListProtocol {
+    
+    @IBOutlet weak var newsSearchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    var newNews: News = News()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        newsArray.removeAll()
+        getNews()
+        newsArray.removeAll()
+        self.tableView.addSubview(self.refreshControl)
+    }
+    
+    
     func loadCreatingEventWindow(cell: NewsTableViewCell) {
         let storyboard: UIStoryboard = UIStoryboard(name: storyBoardNameString, bundle: nil)
         let creatingEventVC = storyboard.instantiateViewController(withIdentifier: creatingEventVCIdentifier) as! CreatingEventViewController
@@ -31,16 +45,22 @@ class RecomendationsViewController: UIViewController,UITableViewDataSource,UITab
         self.present(tagsListVC, animated: true, completion: nil)
     }
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(NewsViewController.handleRefresh(_:)),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = .black
+        
+        return refreshControl
+    }()
     
-    @IBOutlet weak var newsSearchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
-    var newNews: News = News()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         newsArray.removeAll()
         getNews()
+        refreshControl.endRefreshing()
     }
+
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
@@ -49,6 +69,7 @@ class RecomendationsViewController: UIViewController,UITableViewDataSource,UITab
         getNewsByTag()
         newsArray.removeAll()
     }
+
     
     func getTagNameForUrl() -> String {
         
